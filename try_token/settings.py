@@ -48,6 +48,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
 
+    #第三方登入 facebook
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+
     'test_token',
     'django_filters', #自定義過濾器
 ]
@@ -174,3 +179,5 @@ EMAIL_HOST_USER = 'jmm.chang@gmail.com'
 EMAIL_HOST_PASSWORD = '88455488'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+LOGIN_REDIRECT_URL = '/login'

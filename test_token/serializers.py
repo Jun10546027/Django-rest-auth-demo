@@ -10,7 +10,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'id', 'email', 'name', 'last_name', 'birthday', 'password')
+        fields = ('url', 'id','username', 'email', 'last_name', 'password')
 
 class CouponSerializer(serializers.ModelSerializer):
 

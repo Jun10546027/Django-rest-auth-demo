@@ -6,8 +6,12 @@ from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
 
-from test_token.views import MusicViewSet,CouponViewSet,UserViewSet,UserFavViewset,ActivateUserByGet,ResetPasswordUserByGet
-
+from test_token.views import (MusicViewSet,
+                              CouponViewSet,
+                              UserViewSet,
+                              UserFavViewset,
+                              ActivateUserByGet,
+                              ResetPasswordUserByGet)
 #rest_auth
 from rest_auth.views import (
     LoginView, LogoutView, UserDetailsView, PasswordChangeView,
@@ -35,9 +39,9 @@ urlpatterns = [
       name='rest_password_reset'),
     url(r'^password/reset/confirm/$', PasswordResetConfirmView.as_view(),
       name='rest_password_reset_confirm'),
-    url(r'^login/$', LoginView.as_view(), name='rest_login'),
+    url(r'^users/login/$', LoginView.as_view(), name='rest_login'),
     # URLs that require a user to be logged in with a valid session / token.
-    url(r'^logout/$', LogoutView.as_view(), name='rest_logout'),
+    url(r'^users/logout/$', LogoutView.as_view(), name='rest_logout'),
     url(r'^user/$', UserDetailsView.as_view(), name='rest_user_details'),
     url(r'^password/change/$', PasswordChangeView.as_view(),
       name='rest_password_change'),
@@ -45,6 +49,8 @@ urlpatterns = [
 
     #因為rest-auth預設使用allauth，所以要匯入allauth的url，才不會造成NoReverse的錯誤
     url(r'^accounts/', include('allauth.urls')),
+    #reset password 預設會用到django的admin管理網站，所以我們先匯入他測試看看
+    url(r'^', include('django.contrib.auth.urls')),
 
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     path("",include(router.urls)),

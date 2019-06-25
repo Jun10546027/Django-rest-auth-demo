@@ -36,6 +36,10 @@ from templated_mail.mail import BaseEmailMessage
 from djoser import utils
 from djoser.conf import settings
 
+from django.views.generic import TemplateView
+
+# class HomePageView(TemplateView):
+#     template_name = 'homepage.html'
 
 class PasswordResetEmail(BaseEmailMessage):
     template_name = 'email/password_reset.html'
