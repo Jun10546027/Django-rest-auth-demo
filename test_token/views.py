@@ -108,7 +108,9 @@ class MusicViewSet(viewsets.ModelViewSet):
     #permission_classes = [AllowAny]
     permission_classes = (IsAuthenticated,)
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.GenericViewSet,
+                mixins.RetrieveModelMixin,
+                mixins.ListModelMixin):
     permission_classes = ()
     queryset = User.objects.all()
     serializer_class = UserSerializer
