@@ -180,7 +180,21 @@ EMAIL_HOST_PASSWORD = '88455488'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+
 #讓第三方登入重新導向login頁面
 LOGIN_REDIRECT_URL = '/login'
 #讓user一定要填email
 ACCOUNT_EMAIL_REQUIRED = True
+
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+REST_USE_JWT = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+            'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+            'rest_framework.authentication.BasicAuthentication',
+    ],
+}
+
+
