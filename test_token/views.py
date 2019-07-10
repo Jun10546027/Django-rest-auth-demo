@@ -158,3 +158,29 @@ class UserFavViewset(viewsets.GenericViewSet
     def get_queryset(self):
         # 只能看到自己的收藏，不能看到別人的
         return UserFav.objects.filter(user=self.request.user)
+
+from rest_framework_jwt.serializers import JSONWebTokenSerializer
+from rest_framework_jwt.views import JSONWebTokenAPIView
+from rest_framework_jwt.views import jwt_response_payload_handler
+from try_token import settings as Mysetting
+
+class ObtainJSONWebToken(JSONWebTokenAPIView):
+    serializer_class = JSONWebTokenSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.object.get('user') or request.user
+
+            # check if settings swith is on / then check validity
+            if Mysetting.ACCOUNT_EMAIL_VERIFICATION == "mandatory":
+
+                email_address = user.emailaddress_set.get(email=user.email)
+                if not email_address.verified:
+                    return Response(status=403, data='E-mail is not verified.')
+            token = serializer.object.get('token')
+            response_data = jwt_response_payload_handler(token, user, request)
+            return Response(response_data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
