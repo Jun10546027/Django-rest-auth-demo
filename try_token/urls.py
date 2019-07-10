@@ -20,7 +20,7 @@ from rest_auth.views import (
 from django.views.generic import TemplateView
 
 # JWT
-from rest_framework_jwt.views import obtain_jwt_token
+from test_token.views import ObtainJSONWebToken
 from rest_framework_jwt.views import refresh_jwt_token
 from rest_framework_jwt.views import verify_jwt_token
 
@@ -57,7 +57,7 @@ urlpatterns = [
 
 
     #JWT 套用
-    path('api-token-auth/', obtain_jwt_token),
+    path('api-token-auth/', ObtainJSONWebToken.as_view()),
     path('api-token-refresh/', refresh_jwt_token),
     path('api-token-verify/', verify_jwt_token),
 
