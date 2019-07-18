@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 
     #第三方登入 facebook
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
 
     'test_token',
@@ -61,18 +61,18 @@ SITE_ID = 1
 
 
 #=================django-restframework-jwt=======================
-#設定token時效
-import datetime
-
-JWT_AUTH = {
-    #允不允許重新刷新
-    'JWT_ALLOW_REFRESH': True,
-
-    #失效時間(有動還是會失效)
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=30),
-    #失效時間(都不動的話)
-    # 'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=10),
-}
+# #設定token時效
+# import datetime
+#
+# JWT_AUTH = {
+#     #允不允許重新刷新
+#     'JWT_ALLOW_REFRESH': True,
+#
+#     #失效時間(有動還是會失效)
+#     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=30),
+#     #失效時間(都不動的話)
+#     # 'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=10),
+# }
 #=================django-restframework-jwt=======================
 
 
@@ -183,18 +183,22 @@ EMAIL_USE_TLS = True
 
 #讓第三方登入重新導向login頁面
 LOGIN_REDIRECT_URL = '/login'
+
+
 #讓user一定要填email
 ACCOUNT_EMAIL_REQUIRED = True
 
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
-REST_USE_JWT = True
+# REST_USE_JWT = True
+#
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#             'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+#             'rest_framework.authentication.BasicAuthentication',
+#     ],
+# }
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-            'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-            'rest_framework.authentication.BasicAuthentication',
-    ],
-}
-
-
+# after confirming email , redirect urlF
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = False
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/api-token-auth/'
